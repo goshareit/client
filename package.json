@@ -1,0 +1,27 @@
+{
+  "name": "goshare-client",
+  "version": "1.0.0",
+  "description": "goshare javascript client",
+  "main": "dist/bundle.js",
+  "repository": "https://github.com/goshareit/client",
+  "author": "simpleauthority <jacob@algorithmjunkie.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "clean": "rm dist/bundle.js",
+    "build-dev": "yarn run clean && webpack -d --mode development --watch",
+    "build-prod": "yarn run clean && webpack -d --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.6"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "jsonwebtoken": "^8.5.1",
+    "qs": "^6.7.0"
+  }
+}
