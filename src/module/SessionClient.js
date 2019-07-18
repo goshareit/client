@@ -1,33 +1,33 @@
-import qs from 'qs'
-import extractData from '../util/ExtractRequestData'
+import qs from 'qs';
+import extractData from '../util/ExtractRequestData';
 
 export default class SessionClient {
-    constructor(http, jwsUtil) {
-        this.http = http
-        this.jwsUtil = jwsUtil
-    }
+  constructor(http, jwsUtil) {
+    this.http = http;
+    this.jwsUtil = jwsUtil;
+  }
 
-    async sessionIsValid(callerUniqueId, sessionToken) {
-        return extractData(
-            this.http.post("session/is_valid", qs.stringify({
-                session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken)
-            }))
-        )
-    }
+  async sessionIsValid(callerUniqueId, sessionToken) {
+    return extractData(
+      this.http.post('session/is_valid', qs.stringify({
+        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
+      })),
+    );
+  }
 
-    async logIn(username, password) {
-        return extractData(
-            this.http.post("session/log_in", qs.stringify({
-                username, password
-            }))
-        )
-    }
+  async logIn(username, password) {
+    return extractData(
+      this.http.post('session/log_in', qs.stringify({
+        username, password,
+      })),
+    );
+  }
 
-    async logOut(callerUniqueId, sessionToken) {
-        return extractData(
-            this.http.post("session/log_out", qs.stringify({
-                session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken)
-            }))
-        )
-    }
+  async logOut(callerUniqueId, sessionToken) {
+    return extractData(
+      this.http.post('session/log_out', qs.stringify({
+        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
+      })),
+    );
+  }
 }

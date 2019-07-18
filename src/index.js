@@ -4,34 +4,34 @@ import JwsUtil from './util/JwsUtil';
 import RoomClient from './module/RoomClient';
 
 export default class Client {
-    constructor(config) {
-        this.http = axios.create({ baseURL: config.baseUrl })
-        this.jwsUtil = new JwsUtil(config.signingKey, config.maxAgeMinutes)
-        this.userClient = new UserClient(this.http, this.jwsUtil)
-        this.roomClient = new RoomClient(this.http, this.jwsUtil)
-    }
+  constructor(config) {
+    this.http = axios.create({ baseURL: config.baseUrl });
+    this.jwsUtil = new JwsUtil(config.signingKey, config.maxAgeMinutes);
+    this.userClient = new UserClient(this.http, this.jwsUtil);
+    this.roomClient = new RoomClient(this.http, this.jwsUtil);
+  }
 
-    jws() {
-        return this.jwsUtil
-    }
+  jws() {
+    return this.jwsUtil;
+  }
 
-    user() {
-        return this.userClient
-    }
+  user() {
+    return this.userClient;
+  }
 
-    session() {
-        return this.user().session()
-    }
+  session() {
+    return this.user().session();
+  }
 
-    room() {
-        return this.roomClient;
-    }
+  room() {
+    return this.roomClient;
+  }
 
-    roomMember() {
-        return this.room().member()
-    }
+  roomMember() {
+    return this.room().member();
+  }
 
-    roomInvite() {
-        return this.room().invite()
-    }
+  roomInvite() {
+    return this.room().invite();
+  }
 }
