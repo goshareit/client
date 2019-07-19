@@ -1,8 +1,8 @@
 {
   "name": "goshare-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "goshare javascript client",
-  "main": "dist/bundle.js",
+  "main": "src/index.js",
   "repository": "https://github.com/goshareit/client",
   "author": "simpleauthority <jacob@algorithmjunkie.com>",
   "license": "MIT",
@@ -10,21 +10,13 @@
   "scripts": {
     "lint": "yarn run eslint --ext .js --ignore-path .gitignore .",
     "lintfix": "yarn run eslint --fix --ext .js --ignore-path .gitignore .",
-    "precommit": "yarn lint",
-    "clean": "rm dist/bundle.js",
-    "dev": "yarn run clean && webpack -d --mode development --watch",
-    "build": "yarn run clean && webpack -d --mode production"
+    "precommit": "yarn lint"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/preset-env": "^7.5.4",
-    "babel-loader": "^8.0.6",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-loader": "^2.2.1",
-    "eslint-plugin-import": "^2.18.0",
-    "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.6"
+    "eslint-plugin-import": "^2.18.0"
   },
   "dependencies": {
     "axios": "^0.19.0",
