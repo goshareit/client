@@ -41,13 +41,13 @@ export default class UserClient {
     );
   }
 
-  async update(callerUniqueId, sessionToken, username, password, email) {
+  async update(callerUniqueId, sessionToken, updateBag) {
     return extractData(
       this.http.put('user/update', qs.stringify({
         session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-        username,
-        password,
-        email,
+        username: updateBag.username ? updateBag.username : null,
+        password: updateBag.password ? updateBag.password : null,
+        email: updateBag.email ? updateBag.email : null,
       })),
     );
   }

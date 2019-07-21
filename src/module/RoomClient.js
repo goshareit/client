@@ -47,15 +47,15 @@ export default class RoomClient {
     );
   }
 
-  async update(callerUniqueId, sessionToken, id, ownerUniqueId, topicId, name, secret) {
+  async update(callerUniqueId, sessionToken, id, updateBag) {
     return extractData(
       this.http.put('room/update', qs.stringify({
         session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
         id,
-        owner_unique_id: ownerUniqueId,
-        topic_id: topicId,
-        name,
-        secret,
+        owner_unique_id: updateBag.ownerUniqueId ? updateBag.ownerUniqueId : null,
+        topic_id: updateBag.topicId ? updateBag.topicId : null,
+        name: updateBag.name ? updateBag.name : null,
+        secret: updateBag.secret ? updateBag.secret : null,
       })),
     );
   }
