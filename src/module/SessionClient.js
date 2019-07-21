@@ -25,9 +25,11 @@ export default class SessionClient {
 
   async logOut(callerUniqueId, sessionToken) {
     return extractData(
-      this.http.post('session/log_out', qs.stringify({
-        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-      })),
+      this.http.delete('session/log_out', {
+        data: qs.stringify({
+          session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
+        })
+      })
     );
   }
 }

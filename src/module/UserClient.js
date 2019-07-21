@@ -17,6 +17,14 @@ export default class UserClient {
     );
   }
 
+  async emailExists(email) {
+    return extractData(
+      this.http.get('user/email_exists', {
+        params: { email }
+      }),
+    );
+  }
+
   async signUp(username, password, confirmation, email) {
     return extractData(
       this.http.post('user/sign_up', qs.stringify({
@@ -47,9 +55,9 @@ export default class UserClient {
   async delete(callerUniqueId, sessionToken) {
     return extractData(
       this.http.delete('user/delete', {
-        data: {
+        data: qs.stringify({
           session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-        },
+        }),
       }),
     );
   }
