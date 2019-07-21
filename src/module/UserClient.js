@@ -41,10 +41,11 @@ export default class UserClient {
     );
   }
 
-  async update(callerUniqueId, sessionToken, updateBag) {
+  async update(callerUniqueId, sessionToken, currentPassword, updateBag) {
     return extractData(
       this.http.put('user/update', qs.stringify({
         session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
+        current_password: currentPassword,
         username: updateBag.username ? updateBag.username : null,
         password: updateBag.password ? updateBag.password : null,
         email: updateBag.email ? updateBag.email : null,
@@ -52,11 +53,12 @@ export default class UserClient {
     );
   }
 
-  async delete(callerUniqueId, sessionToken) {
+  async delete(callerUniqueId, sessionToken, currentPassword) {
     return extractData(
       this.http.delete('user/delete', {
         data: qs.stringify({
           session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
+          current_password: currentPassword
         }),
       }),
     );
