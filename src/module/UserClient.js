@@ -1,5 +1,6 @@
 import qs from 'qs';
 import extractData from '../util/ExtractRequestData';
+import auth from '../util/CreateAuthorizationHeader';
 import SessionClient from './SessionClient';
 
 export default class UserClient {
@@ -20,7 +21,7 @@ export default class UserClient {
   async emailExists(email) {
     return extractData(
       this.http.get('user/email_exists', {
-        params: { email }
+        params: { email },
       }),
     );
   }
@@ -35,21 +36,26 @@ export default class UserClient {
 
   async readSelf(callerUniqueId, sessionToken) {
     return extractData(
-      this.http.post('user/read_self', qs.stringify({
-        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-      })),
+      this.http.get('user/read_self', {
+        headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
+      }),
     );
   }
 
   async update(callerUniqueId, sessionToken, currentPassword, updateBag) {
     return extractData(
-      this.http.put('user/update', qs.stringify({
-        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-        current_password: currentPassword,
-        username: updateBag.username ? updateBag.username : null,
-        password: updateBag.password ? updateBag.password : null,
-        email: updateBag.email ? updateBag.email : null,
-      })),
+      this.http.put(
+        'user/update',
+        qs.stringify({
+          current_password: currentPassword,
+          username: updateBag.username ? updateBag.username : null,
+          password: updateBag.password ? updateBag.password : null,
+          email: updateBag.email ? updateBag.email : null,
+        }),
+        {
+          headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
+        },
+      ),
     );
   }
 
@@ -57,9 +63,9 @@ export default class UserClient {
     return extractData(
       this.http.delete('user/delete', {
         data: qs.stringify({
-          session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-          current_password: currentPassword
+          current_password: currentPassword,
         }),
+        headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
       }),
     );
   }

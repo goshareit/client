@@ -27,6 +27,10 @@ export default class Client {
     return this.roomClient;
   }
 
+  roomTopic() {
+    return this.room().topic();
+  }
+
   roomMember() {
     return this.room().member();
   }

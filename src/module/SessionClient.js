@@ -1,18 +1,11 @@
 import qs from 'qs';
 import extractData from '../util/ExtractRequestData';
+import auth from '../util/CreateAuthorizationHeader';
 
 export default class SessionClient {
   constructor(http, jwsUtil) {
     this.http = http;
     this.jwsUtil = jwsUtil;
-  }
-
-  async sessionIsValid(callerUniqueId, sessionToken) {
-    return extractData(
-      this.http.post('session/is_valid', qs.stringify({
-        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-      })),
-    );
   }
 
   async logIn(username, password) {
@@ -26,10 +19,8 @@ export default class SessionClient {
   async logOut(callerUniqueId, sessionToken) {
     return extractData(
       this.http.delete('session/log_out', {
-        data: qs.stringify({
-          session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-        })
-      })
+        headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
+      }),
     );
   }
 }

@@ -1,5 +1,6 @@
 import qs from 'qs';
 import extractData from '../util/ExtractRequestData';
+import auth from '../util/CreateAuthorizationHeader';
 
 export default class RoomMemberClient {
   constructor(http, jwsUtil) {
@@ -9,21 +10,31 @@ export default class RoomMemberClient {
 
   async add(callerUniqueId, sessionToken, roomId) {
     return extractData(
-      this.http.post('room/member/add', qs.stringify({
-        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-        room_id: roomId,
-      })),
+      this.http.post(
+        'room/member/add',
+        qs.stringify({
+          room_id: roomId,
+        }),
+        {
+          headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
+        },
+      ),
     );
   }
 
   async update(callerUniqueId, sessionToken, roomId, userUniqueId, admin) {
     return extractData(
-      this.http.put('room/member/update', qs.stringify({
-        session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
-        room_id: roomId,
-        user_unique_id: userUniqueId,
-        admin,
-      })),
+      this.http.put(
+        'room/member/update',
+        qs.stringify({
+          room_id: roomId,
+          user_unique_id: userUniqueId,
+          admin,
+        }),
+        {
+          headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
+        },
+      ),
     );
   }
 
@@ -31,10 +42,10 @@ export default class RoomMemberClient {
     return extractData(
       this.http.delete('room/member/delete', {
         data: {
-          session: this.jwsUtil.createSessionJws(callerUniqueId, sessionToken),
           room_id: roomId,
           user_unique_id: userUniqueId,
         },
+        headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
       }),
     );
   }
