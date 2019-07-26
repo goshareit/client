@@ -8,6 +8,14 @@ export default class RoomMemberClient {
     this.jwsUtil = jwsUtil;
   }
 
+  async read(callerUniqueId, sessionToken) {
+    return extractData(
+      this.http.get('room/member/read', {
+        headers: auth(this.jwsUtil, callerUniqueId, sessionToken)
+      }),
+    );
+  }
+
   async add(callerUniqueId, sessionToken, roomId) {
     return extractData(
       this.http.post(

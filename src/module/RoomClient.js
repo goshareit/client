@@ -57,6 +57,14 @@ export default class RoomClient {
     );
   }
 
+  async readMember(callerUniqueId, sessionToken) {
+    return extractData(
+      this.http.get('room/read_member', {
+        headers: auth(this.jwsUtil, callerUniqueId, sessionToken)
+      }),
+    );
+  }
+
   async update(callerUniqueId, sessionToken, id, updateBag) {
     return extractData(
       this.http.put(
