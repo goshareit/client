@@ -86,9 +86,9 @@ export default class RoomClient {
   async delete(callerUniqueId, sessionToken, roomId) {
     return extractData(
       this.http.delete('room/delete', {
-        data: {
+        data: qs.stringify({
           id: roomId,
-        },
+        }),
         headers: auth(this.jwsUtil, callerUniqueId, sessionToken),
       }),
     );
