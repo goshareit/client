@@ -1,6 +1,6 @@
 {
   "name": "goshare-client",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "goshare javascript client",
   "main": "src/index.js",
   "repository": "https://github.com/goshareit/client",

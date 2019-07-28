@@ -11,7 +11,7 @@ export default class JwsUtil {
   }
 
   createSessionJws(uniqueId, token) {
-    return this.create(uniqueId, { token });
+    return this.create(uniqueId, { token, websocket: false });
   }
 
   read(token) {
