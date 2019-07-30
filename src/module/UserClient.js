@@ -1,6 +1,6 @@
 import qs from 'qs';
 import extractData from '../util/ExtractRequestData';
-import auth from '../util/CreateAuthorizationHeader';
+import auth from '../util/CreateSessionAuthorizationHeader';
 import SessionClient from './SessionClient';
 
 export default class UserClient {

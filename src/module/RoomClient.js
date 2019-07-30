@@ -1,17 +1,19 @@
 import qs from 'qs';
 import extractData from '../util/ExtractRequestData';
+import auth from '../util/CreateSessionAuthorizationHeader';
 import RoomTopicClient from './RoomTopicClient';
 import RoomMemberClient from './RoomMemberClient';
 import RoomInviteClient from './RoomInviteClient';
-import auth from '../util/CreateAuthorizationHeader';
+import RoomWebsocketClient from './RoomWebsocketClient';
 
 export default class RoomClient {
-  constructor(http, jwsUtil) {
+  constructor(http, jwsUtil, wsUtil) {
     this.http = http;
     this.jwsUtil = jwsUtil;
     this.roomTopicClient = new RoomTopicClient(http);
     this.roomMemberClient = new RoomMemberClient(http, jwsUtil);
     this.roomInviteClient = new RoomInviteClient(http, jwsUtil);
+    this.roomWebsocketClient = new RoomWebsocketClient(http, wsUtil, jwsUtil);
   }
 
   async create(callerUniqueId, sessionToken, topicId, name, secret) {
@@ -104,5 +106,9 @@ export default class RoomClient {
 
   invite() {
     return this.roomInviteClient;
+  }
+
+  ws() {
+    return this.roomWebsocketClient;
   }
 }

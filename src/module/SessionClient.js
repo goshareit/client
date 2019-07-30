@@ -1,6 +1,6 @@
 import qs from 'qs';
 import extractData from '../util/ExtractRequestData';
-import auth from '../util/CreateAuthorizationHeader';
+import auth from '../util/CreateSessionAuthorizationHeader';
 
 export default class SessionClient {
   constructor(http, jwsUtil) {

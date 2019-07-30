@@ -14,6 +14,10 @@ export default class JwsUtil {
     return this.create(uniqueId, { token, websocket: false });
   }
 
+  createWebsocketJws(uniqueId, token) {
+    return this.create(uniqueId, { token, websocket: true });
+  }
+
   read(token) {
     return jwt.verify(token, this.signingKey, { maxAge: `${this.maxAgeMinutes}m` });
   }
