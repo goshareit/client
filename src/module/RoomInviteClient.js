@@ -27,12 +27,12 @@ export default class RoomInviteClient {
     );
   }
 
-  async create(callerUniqueId, sessionToken, invitedUserUniqueId, roomId) {
+  async create(callerUniqueId, sessionToken, invitedUsername, roomId) {
     return extractData(
       this.http.post(
         'room/invite/create',
         qs.stringify({
-          invited_user_unique_id: invitedUserUniqueId,
+          invited_username: invitedUsername,
           room_id: roomId,
         }),
         {
